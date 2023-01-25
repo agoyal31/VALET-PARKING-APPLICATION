@@ -1,0 +1,128 @@
+/*
+Name:Avni Goyal
+Email:agoyal31@myseneca.ca
+Student ID:166795211
+Data:10/12/2022
+Section:NBB
+*/
+
+MILESTONE1
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Milestone1 is responsible for displaying the menu and submenu items. Two classes are built that are Menu and MenuItem in which the Menu class is made a friend of 
+MenuItem. It is done so that Menu can access all the functions and variables of the class MenuItem. Also this class is made where no other instance from the class Menu
+can copy and assign to other object of same class. That is: 
+     Menu(const Menu&) = delete;
+     Menu& operator=(const Menu&) = delete;
+Moreoer, this milestone demands for the depiction of menu and submenu with different indentations. Therefore, the other argument is send that is responsible whether 
+the menu and submenu is to be displayed with 4 or 8 spaces. Hence, the milestone1 is just responsible for correct appearance of menu and sub menu along with title and
+contents if added in addition.
+
+MILESTONE2(VALET PARKING)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+This milestone deals with the valet parking application. In which the different options would be displayed on the screen along with the title and when the user select
+the option distinct message will be printed depending upon the selected option.
+This milestone was bit easy but to start with it was little tricky too but at the same time, the tester program of last milestone(main.cpp file of milestone1) helped 
+alot in creating menu and submenu and there titles as well. It helped me to built the menu and submenu for parking. To start with, in the file menu.h, I have declared
+the class MenuItems, inside that different public and private member functions and variables are declared. This class is basically designed to create the menu and
+submenu layout with proper format and also the items inside that menu alongwith there titles. The member variable m_indentation is used to set the indentation of the
+menu and submenu(with four spaces at the front). Now, the query member function is made that so that m_indentation can be accessed inside the parking.cpp module while
+the menu and submenu is displayed. 
+                         int returnIndent();//to access (query) m_indentation
+		         char* returnm_title();// to access title of main ans sub menu
+		         char* returnFirst();// to access the options inside the main menu 
+		         char* returnSecond();// to access the options inside the subMenu
+Similarly, the above displayed three more query functions are declared so that they can return the title and options(for menu and submenu both) and when they will further called in the parking.cpp file they
+will display them on screen. In the file Menu.cpp the menu options and submenu options are assigned to the m_menuTitle depending upon which menu options should be
+displayed on specific indentation(0 or 1). Now, the class MenuItems have the constructor and the objects of the class is made inside the class Parking that accepts two
+arguments that are indentation and title of the menu. Title of the menu is set based upon the indentation and further menu and submenu will display there options 
+depending upon the indentation that is assigned to it in Menu.cpp.
+                        MenuItems MainMenu{ 0, "Parking Menu, select an action:" };// object 
+		        MenuItems SubMenu{ 1, "Select type of the vehicle:" };
+Now, I have made the objects of class MenuItems private inside the class Parking because I want that only the public member functions of class Parking can use the objects(MainMenu 
+and SubMenu)of MenuItems to access the distinct public member functions declared inside the class MenuItems in the module parking.cpp whenever they are required. 
+Finally, talking about parking modules the copy and assignment of class Parking is denied to any other object and the below written functions are made just to print the mock up messages.
+                                                void parkingStatus();
+		                                void parkVehicle(int userInput);
+		                                void returnVehcle();
+		                                void listParkedVehicles();
+Two bool functions were declared inside the class and declared inside the parking.cpp that are:
+                     bool closeParking();
+                     bool exitParking();
+These functions works according to the user entered response. They accepts the enetered response in caracter either yes(y/Y) or no(N/n) for valid result otherwise
+it will keep on validating if the user response in not appropriate. The difference between both of them is that, the closeParking function will first confirm from the
+user by displaying that all the vehicles will be toed away. Are they sure they want to close, in case of positive response the parking application will start from the
+scratch without saving any information but in case of exit parking, the message will be displayed on the screen to ask for user confirmation but in case of positive response
+then the application will be terminated but the whole data will be saved in the particular file.
+The functions isEmpty() and saveDataFile() works side by side that is isEmpty returns a boolean value, returns false if parking is valid i.e. if the existing file contains appropriate data
+and if does then the function will simply display the mockup message. The function loadFileData() will simply see if the file exists and have inside it something then prints the
+message. The main function is run function that pile up all the dfferent functions created and make a beautiful application work. When the user executes the program
+it do steps in this order, firstly, it displays loading data from the file as per written inside the main.cpp and then error meassage after that title and mainmenu with
+different otions is displayed and user has to insert any one from them and depending upon the user selection the application will work further but as soon as the user entered 5 or 6
+the control goes to bool closeParking();
+                     bool exitParking(); these two functions that perfrom their task and based upon them the application respond as per the selections.
+ 
+
+MILESTONE 3
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ In this milestone there were two modules ReadWritable and Vehicle, both the modules have there respective classes but the class vehicle is derived from the 
+ReadWritable class(parent). The parent class do not have any content inside it that is stored dynamically but there is attribute m_makeAndModel that is held dynamically
+inside the derived class Vehicle. Moreover, the ReadWritable class has the member variable inside it called flag which is of type boolean and is responsible for reading and
+writing the data into the class Vehicle either in the form of Csv if the flag is true or by writing to the console and reading values one by one. 
+Moving further, as the class Vehicle has dynamic content rule of three was applied to it, to ensure that there is no memory leak.
+
+Vehicle(Vehicle& otherVehicle);
+        Vehicle& operator=(Vehicle& otherVehicle);
+        ~Vehicle();
+
+The ReadWritable class, is an abstract base class because it has two pure virtual functions that are read and write respectively that are defined in the class Vehicle. Also,
+the vehicle class is also an abstract base class because it has the pure virtual function named writetype. This function is defined in the main file that allowed us to 
+instantiate all the classes. Also, depending upon the conditions we set that is comma separated value(flag) it displays the objects information in that format else 
+it rendered it to invalid object. 
+
+
+MILESTONE 4
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+This milestone was very knowledgeable and was the extended part of the milestone3. In this milestone, two concrete classes have been built named Car and 
+Motorcycle that are derived from the abstract base class Vehicle. Some of the public member functions inside the class Vehicle were moved to the protected so that the two 
+concrete classes built from this class can access these member functions and there access is limited to the derived classes(concrete) only because protected means that the 
+protected member functions could be modified by child only.Two functions read and write were both overridden in both the concrete classes. While they are accessing most of 
+the member functions that are mentioned under public and protected section of the base class(Vehicle) but they both have there single private member variables of the type 
+bool, constructors and destructors. The class car has bool m_carwashFlag and motorcycle has m_motorcycleFlag that is actually responsible in which way the functions read 
+and write will work. Once, both the clasBefore ses are instansiated the rule of three will be applied to it as soon as the license plate number and make and model are passed to
+the constructor of the class vehicle for copy constructor to work and fulfill the first rule from rule of 3. Then after taking the values of the flag it jumps for
+assignment to be implemented accordingly. Afterwards, depending upon wheter the setCSV() is true or false it will prompt from user to enter the comma separated values 
+or single values repectively. Moreover, validation used to enter user response whether the person needs carwash or not / has side car or not. Well, the milestone was
+pretty knowledgeable as it cleared more concepts based upon how pervious class functions were to be reused by making the class inherit in new concrete classes(base) to work 
+them as required.
+
+
+MILESTONE5
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Changes made to the findVehicle() function. Before it was not accepting any parameter and returning something. However, I have modified it according to project demands
+such that it return an int and accepts a flag of integer type too. The way the milestone executes is, it first displays the main menu and depending upon the userSelection,
+the entered selection 3 will print the list of all the vehcles parked, 6 will exit the parking, 1 will park a vehicle, etc. All these functionalities are made possible 
+with some extra piece of code added to prebuilt functions. To begin with, four additional member variables were created:-
+                                          
+      		const int m_maxNumOfParkingSpots = 100;
+		int m_numOfSpots{};//always less than or equal to maximum parking spots
+		int m_numOfvehiclesParked{};//always less than number of spots available
+		Vehicle* m_Vehiclepointers[100]{};//parking spots int he parking
+
+
+The m_Vehiclepointers[100] is responsible for storing an array for pointers for vehicles. In the parkVehicle(int userInput) function, depending upon what the user selects
+from 1 or 2, a instances of car and motorcycle is created dynamically and based on values that they read from the file in there parking spot member variable, they are 
+handled by (they are pointed by) m_VehiclePointer. Moving further, if the user selects option 2 from the main Menu the system asks for license plate number to return the 
+vehicle. It will then search for that vehicle with all the vehicle number plates that are being refferred by vehicle pointer and remove or delete the dynamically pointed
+vehicle(car or motorcycle) from their respective parking spot. This way we can have number of parked vehicles decreased by one.Moreover, if the user selected option is 3,
+from the main menu our program will run the loop from 0 till it reached the number of parking spots and based on if the parking spot is not null it will display the contents
+of the parked vehicles on the respected parking spot that may be car or motorcycle which includes its name, parking spot number, license plate number etc. Furthermore, if
+selected response from the user side is 4, it will work exactly in the same way as return vehicle but it would not delete the vehicle from the memory instead it will just 
+loop through all the vehicle pointers that are not null and based on matching license plate number will display the contents of the vehicle(name, license palte number,
+parking spot number etc.). Also, if the option 5 is entered that is close parking, a towing request message will be displayed on the console and all the dynamically 
+created vehicles will be deleted from the memory one by one and vehicle pointers are set to nullptr, so that the destructor it the program afterwards will not give any 
+run time error. Lastly, if the user enters the option 6, it will prompt to verify if user wants to exit the program and based upon the user response from yes or no, it
+will either display the parking menu again if n/N is selected or it will end the program by calling the destructor in case of y/Y which inturn will make a call to save data
+file function that is responsible for saving all the dynamically created vehicles into m_file(writing into the file). After that, it will go through the loop and based 
+upon m_VehiclePointer not pointing to nullptr it will delete all the dynamically allocated memory and exits the program. Hence, the milestone 5th works in this way
+without any memory leak errors. Therefore, the parking vehicle application runs smoothly and the end product of the project is really amazing.
+
